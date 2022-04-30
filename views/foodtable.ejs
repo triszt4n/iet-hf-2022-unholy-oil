@@ -1,0 +1,43 @@
+<%- include('header') %>
+<%- include('menu',{page:'foods'}) %>
+
+
+<!-- Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>Rendelhető élelmiszerek</h2>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Név</th>
+                    <th scope="col">Tápérték</th>
+                    <th scope="col">Tartósság</th>
+                    <th scope="col">Műveletek</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for(let food of foods) {%>
+                <tr>
+                    <td><%=food.name%></td>
+                    <td><%=food.kcal%> Kcal</td>
+                    <td><%=food.lasts%> nap</td>
+                    <td>
+                        <a href="/foods/edit/<%=food._id%>" type="button" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                        <a href="/foods/del/<%=food._id%>" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+            <a href="/foods/new" type="button" class="btn btn-primary btn-lg btn-block">Új étel</a>
+        </div>
+    </div>
+    <div class="alert alert-light" role="alert">
+        Figyelem! Egy étel törlésével a már felvett raktárelemek nem törlődnek automatikusan.
+    </div>
+</div>
+
+
+
+<%- include('footer') %>

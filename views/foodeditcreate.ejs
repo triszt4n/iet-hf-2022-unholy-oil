@@ -1,0 +1,48 @@
+<%- include('header') %>
+<%- include('menu') %>
+
+<% if(typeof warning != 'undefined'){ %> 
+
+    <div class="alert alert-warning" role="alert">
+        <p><%= warning %></p> 
+    </div>
+
+<% } %> 
+
+<% if(typeof food !== 'undefined'){ %> 
+
+    <div class="alert alert-warning" role="alert">
+        <h2>Figyelem!</h2>
+        Az itt módosított tulajdonságok nem frissülnek automatikusa a már felvett raktárelemekben.
+      </div>
+
+<% } %> 
+
+<!-- Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>Étel <%=(typeof food === 'undefined')? 'létrehozása': 'szerkeztése'%></h2>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="name">Név</label>
+                    <input type="text" class="form-control" id="name" name="name" value="<%=(typeof food === 'undefined')? '' : food.name%>">
+                </div>
+                <div class="form-group">
+                    <label for="kcal">Tápérték (Kcal-ban)</label>
+                    <input type="number" class="form-control" id="kcal" name="kcal" value="<%=(typeof food === 'undefined')? '' : food.kcal%>">
+                </div>
+                <div class="form-group">
+                    <label for="lasts">Tartósság (napokban)</label>
+                    <input type="number" class="form-control" id="lasts" name="lasts" value="<%=(typeof food === 'undefined')? '' : food.lasts%>">
+                </div>
+                <input type="submit" class="btn btn-primary" value="Mentés"/>
+                <a href="/foods" class="btn btn-secondary">Mégsem</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<%- include('footer') %>

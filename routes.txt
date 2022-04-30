@@ -1,0 +1,94 @@
+
+
+Middlewares
+
+Common:
+    loginMW
+    authMW
+    handleWrongPassMW
+    RenderMW(index)
+
+Bunker:
+    getBunkerListMW
+    getBunkerMW
+    saveBunkerMW
+    deleteBunkerMW
+
+Food:
+    getFoodListMW
+    getFoodMW
+    saveFoodMW
+    deleteFoodMW
+
+Storage:
+    addStorageItemMW
+    deleteStorageItemMW
+
+get '/?hiba="wrong_pass"' // index, bejelentkező felület
+    handleWrongPassMW
+    RenderMW(index)
+
+post '/login'
+    loginMW
+
+get '/bunkers'                //bunkerek listája, bejelntkezés után ide redirectel
+    authMW
+    getBunkerListMW
+    getTopWarningsMW
+    RenderMW (bunkers)
+
+get, post 'bunkers/new' // bunker létrehozása
+    authMW
+    saveBunkerMW
+    RenderMW(bunkereditcreate)
+
+get, post 'bunkers/edit/:bunkerid' //bunker szerkeztése
+    authMW
+    getBunkerMW
+    saveBunkerMW
+    RenderMW(bunkereditcreate)
+
+get 'bunkers/del/:bunkerid' //bunker törlése
+    authMW
+    getBunkerMW
+    deleteBunkerMW
+
+get '/bunkers/info/:bunkerid' // egy bunker részletes leírása
+    authMW
+    getBunkerMW
+    getStorageWarningsMW
+    RenderMW(bunkerinfo)
+
+get, post 'bunkers/storage/add/:bunkerid' // hozzáad egy elemet a bunker kamrájához
+    authMW
+    getBunkerMW
+    saveStorageItemMW
+    RenderMW(storageadd)
+
+get 'bunkers/storage/del/:bunkerid/:itemid' //töröl egy elemet a kamrából
+    authMW
+    getBunkerMW
+    deleteStorageItemMW
+
+
+
+get '/foods' // az ételek listája
+    authMW
+    getFoodListMW
+    RenderMW(foodtable)
+
+get, post 'foods/new' //új étel
+    authMW
+    saveFoodMW
+    RenderMW(foodeditcreate)
+
+get, post 'foods/edit/:foodid' // étel szerkeztése
+    authMW
+    getFoodMW
+    saveFoodMW
+    RenderMW(foodeditcreate)
+
+get 'foods/del/:foodid' //étel törlése
+    authMW
+    getFoodMW
+    deleteFoodMW

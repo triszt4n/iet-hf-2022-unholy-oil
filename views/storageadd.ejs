@@ -1,0 +1,45 @@
+<%- include('header') %>
+<%- include('menu') %>
+
+
+<% if(typeof warning != 'undefined'){ %> 
+
+    <div class="alert alert-warning" role="alert">
+        <h2>A mentés nem sikerült</h2>
+        <p><%= warning %></p> 
+    </div>
+
+<% } %> 
+<!-- Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>Raktárelem hozzáadása</h2>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="type">Élelmiszer típus</label>
+                    <select class="form-control" id="type" name="type">
+                        <% for(let food of foods) {%> 
+                            <option value="<%=food._id%>"><%=food.name%></option>
+                         <% } %> 
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="dop">Gyártási idő</label>
+                    <input type="date" class="form-control" id="dop" name="dop" value="<%=today%>">
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Darabszám</label>
+                    <input type="number" class="form-control" id="quantity" name="quantity">
+                </div>
+                <input type="submit" class="btn btn-primary" value="Mentés"/>
+                <a href="/bunkers/info/<%=bunker._id%>" type="submit" class="btn btn-secondary">Mégsem</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<%- include('footer') %>

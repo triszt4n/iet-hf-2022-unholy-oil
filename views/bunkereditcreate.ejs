@@ -1,0 +1,43 @@
+<%- include('header') %>
+<%- include('menu') %>
+
+
+<% if(typeof warning != 'undefined'){ %> 
+
+    <div class="alert alert-warning" role="alert">
+        <h2>A mentés nem sikerült</h2>
+        <p><%= warning %></p> 
+    </div>
+
+<% } %> 
+
+<!-- Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>Bunker <%=(typeof bunker === 'undefined')? 'létrehozása' : 'szerkeztése' %></h2>
+            <form method="post"> 
+                <div class="form-group">
+                    <label for="name">Bunker név</label>
+                    <input type="text" class="form-control" id="name" name="name" value="<%=(typeof bunker === 'undefined')? '' : bunker.name%>">
+                </div>
+                <div class="form-group">
+                    <label for="adress">Cím</label>
+                    <input type="text" class="form-control" id="adress" name="adress" value="<%=(typeof bunker === 'undefined')? '' : bunker.adress%>">
+                </div>
+                <div class="form-group">
+                    <label for="capacity">Férőhely</label>
+                    <input type="number" class="form-control" id="capacity" name="capacity" value="<%=(typeof bunker === 'undefined')? '' : bunker.capacity%>">
+                </div>
+                <input type="submit" class="btn btn-primary" value="Mentés"/>
+                <a href="/bunkers" type="submit" class="btn btn-secondary">Mégsem</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<%- include('footer') %>

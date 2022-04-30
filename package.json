@@ -1,0 +1,24 @@
+{
+  "name": "bunkermgr",
+  "version": "1.0.0",
+  "description": "VITMAV42 homework",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive",
+    "nodemon": "nodemon index.js"
+  },
+  "author": "EQN34F",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "moment": "^2.24.0",
+    "mongoose": "^5.9.10"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.1.2",
+    "nodemon": "^2.0.2"
+  }
+}

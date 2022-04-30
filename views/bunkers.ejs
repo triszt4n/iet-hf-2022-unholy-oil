@@ -1,0 +1,43 @@
+<%- include('header') %>
+<%- include('menu',{page:'bunkers'}) %>
+
+<!-- Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>Bunkerek</h2>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Név</th>
+                    <th scope="col">Készlet</th>
+                    <th scope="col">Figyelmeztetés</th>
+                    <th scope="col">Műveletek</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for(let bunker of bunkers) {%>
+                    <tr>
+                        <td><%= bunker.name %></td>
+                        <td><%= bunker.stock_dur %> nap</td>
+                        <td class="<%=bunker.warning.class%>"><%=bunker.warning.message%></td>
+                        <td>
+                            <a href="/bunkers/info/<%=bunker._id%>" type="button" class="btn btn-secondary btn-sm"><i class="fas fa-info-circle"></i></a>
+                            <a href="/bunkers/edit/<%=bunker._id%>" type="button" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                            <a href="/bunkers/del/<%=bunker._id%>" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr> 
+                <% } %>
+                </tbody>
+            </table>
+            <a href="/bunkers/new" type="button" class="btn btn-primary btn-lg btn-block">Új bunker</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<%- include('footer') %>
