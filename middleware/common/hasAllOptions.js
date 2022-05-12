@@ -1,16 +1,17 @@
 /**
- * 
- * @param {Object to check} object 
- * @param {List of properties} propertyArray 
+ *
+ * @param {Object to check} object
+ * @param {List of properties} propertyArray
  */
 function hasAllOptions(object, propertyArray) {
-    if(typeof object === 'undefined' || !Array.isArray(propertyArray)) return false;
+  if (typeof object === 'undefined' || !Array.isArray(propertyArray))
+    return false
 
-    for(property of propertyArray){
-        if(typeof object[property] === 'undefined') return false;
-    }
+  for (property of propertyArray) {
+    if (typeof object[property] === 'undefined') return false
+  }
 
-    return true;
+  return true
 }
 
-module.exports = hasAllOptions;
+module.exports = hasAllOptions

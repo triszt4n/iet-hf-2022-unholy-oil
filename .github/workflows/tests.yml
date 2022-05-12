@@ -1,4 +1,4 @@
-name: Test Cucumber files
+name: Test all
 
 on:
   pull_request:
@@ -26,4 +26,6 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-      - run: npm run test-cucumber
+        
+      - name: Run tests
+        run: npm run test

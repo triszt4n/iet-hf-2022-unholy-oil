@@ -1,13 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-const connectionString = '';
+const connectionString = ''
 
-mongoose.connect(
-    connectionString, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    }
-);
+mongoose.connect(connectionString, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
 
-
-module.exports = mongoose;
+module.exports = mongoose
