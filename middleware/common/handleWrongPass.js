@@ -9,7 +9,7 @@ module.exports = function () {
     ) {
       res.locals.error = {
         type: 'Wrong username or password.',
-        message: 'Try admin/123456 combination ;)',
+        message: 'Try another combination',
       }
     }
 

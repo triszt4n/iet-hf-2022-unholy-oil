@@ -2,6 +2,7 @@ const express = require('express')
 const session = require('express-session')
 const bodyParser = require('body-parser')
 const moment = require('moment')
+require('dotenv').config()
 
 moment.defaultFormat = 'YYYY-MM-DD'
 
@@ -35,8 +36,8 @@ app.use((err, req, res) => {
   return res.render('notfound')
 })
 
-app.listen(3000, function () {
-  console.log('On: 3000')
-  console.log('Login: admin')
-  console.log('Password: 123456')
+const port = process.env.PORT || 3000
+
+app.listen(port, function () {
+  console.log(`Server listening on ${port}`)
 })
