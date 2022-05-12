@@ -20,7 +20,11 @@
   "devDependencies": {
     "@cucumber/cucumber": "^8.2.0",
     "chai": "^4.2.0",
+    "eslint": "^8.15.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "mocha": "^7.1.2",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "prettier": "2.6.2"
   }
 }
