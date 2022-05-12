@@ -9,7 +9,7 @@ let dS = StorageItemModel.deleteMany().exec()
 Promise.all([dF, dB, dS])
   .then(fillDB)
   .catch((err) => console.log(err))
-  .then((res) => {
+  .then(() => {
     console.log('done')
     return process.exit()
   })

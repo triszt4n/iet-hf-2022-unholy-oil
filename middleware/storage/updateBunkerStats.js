@@ -1,13 +1,10 @@
 const moment = require('moment')
 const globalConfig = require('../../config/globalConfig')
-const requireOption = require('../common/requireOption')
 
 /**
  * Updates the bunkers statistics, like estimated days or next expiration date
  */
-module.exports = function (objectrepository) {
-  const BunkerModel = requireOption(objectrepository, 'BunkerModel')
-
+module.exports = function () {
   return function (req, res, next) {
     let sumCalories = 0
     let expDates = []

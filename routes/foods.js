@@ -35,7 +35,7 @@ module.exports = function (app, objectRepository) {
     authMW(objectRepository),
     getFoodMW(objectRepository),
     deleteFoodMW(objectRepository),
-    function (req, res, next) {
+    function (req, res) {
       return res.redirect('/foods')
     }
   )

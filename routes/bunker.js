@@ -36,7 +36,7 @@ module.exports = function (app, objectRepository) {
     getBunkerMW(objectRepository),
     deleteBunkerMW(objectRepository),
     cleanupBunkerMw(objectRepository),
-    function (req, res, next) {
+    function (req, res) {
       return res.redirect('/bunkers')
     }
   )

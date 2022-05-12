@@ -4,7 +4,7 @@ const globalConfig = require('../../config/globalConfig')
  * If the user is logged in, redirects to '/bunkers'
  */
 
-module.exports = function (objectrepository) {
+module.exports = function () {
   return function (req, res, next) {
     if (
       !globalConfig.useAuthentication ||

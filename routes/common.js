@@ -12,11 +12,11 @@ module.exports = function (app, objectRepository) {
     renderMW(objectRepository, 'index')
   )
 
-  app.post('/login', loginMW(objectRepository), function (req, res, next) {
+  app.post('/login', loginMW(objectRepository), function (req, res) {
     return res.redirect('/bunkers')
   })
 
-  app.get('/logout', logoutMW(objectRepository), function (req, res, next) {
+  app.get('/logout', logoutMW(objectRepository), function (req, res) {
     return res.redirect('/')
   })
 }

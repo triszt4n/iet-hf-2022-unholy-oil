@@ -7,7 +7,7 @@ function hasAllOptions(object, propertyArray) {
   if (typeof object === 'undefined' || !Array.isArray(propertyArray))
     return false
 
-  for (property of propertyArray) {
+  for (let property of propertyArray) {
     if (typeof object[property] === 'undefined') return false
   }
 

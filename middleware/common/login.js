@@ -2,7 +2,7 @@
  * Checks user credentials
  */
 
-module.exports = function (objectrepository) {
+module.exports = function () {
   return function (req, res, next) {
     if (
       req.body &&

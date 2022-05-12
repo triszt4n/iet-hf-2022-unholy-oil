@@ -25,17 +25,17 @@ app.use(
 require('./routes')(app)
 
 //404route
-app.use((req, res, next) => {
+app.use((req, res) => {
   return res.render('notfound')
 })
 
 //error-handle
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   console.log('error: ', err)
   return res.render('notfound')
 })
 
-var server = app.listen(3000, function () {
+app.listen(3000, function () {
   console.log('On: 3000')
   console.log('Login: admin')
   console.log('Password: 123456')

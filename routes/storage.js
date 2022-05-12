@@ -32,7 +32,7 @@ module.exports = function (app, objectRepository) {
     getBunkerMW(objectRepository),
     deletStorageItemMW(objectRepository),
     updateBunkerStatsMW(objectRepository),
-    function (req, res, next) {
+    function (req, res) {
       return res.redirect(`/bunkers/info/${req.params.bunkerid}`)
     }
   )

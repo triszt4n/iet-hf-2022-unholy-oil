@@ -1,7 +1,7 @@
 /**
  * If there is an error message, gives it to the render engine
  */
-module.exports = function (objectrepository) {
+module.exports = function () {
   return function (req, res, next) {
     if (
       typeof req.query.error != 'undefined' &&
