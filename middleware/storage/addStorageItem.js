@@ -28,7 +28,9 @@ module.exports = function (objectrepository) {
       quantity: req.body.quantity,
     })
 
-    FoodModel.findOne({ _id: req.body.type }, (err, food) => {
+    var id = sanitize(req.body.type)
+
+    FoodModel.findOne({ _id: id }, (err, food) => {
       if (err) return next(err)
 
       if (!food) return next('No food with id: ' + req.body.type)
@@ -46,4 +48,17 @@ module.exports = function (objectrepository) {
       return newItem.save(next)
     })
   }
+}
+
+function sanitize(v) {
+  if (v instanceof Object) {
+    for (var key in v) {
+      if (/^\$/.test(key)) {
+        delete v[key]
+      } else {
+        sanitize(v[key])
+      }
+    }
+  }
+  return v
 }
