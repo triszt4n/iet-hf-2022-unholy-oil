@@ -17,6 +17,11 @@ jobs:
         with:
           node-version: '12.x'
 
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.7.0
+        with:
+          mongodb-version: '4.4'
+
       - name: Upgrade NPM
         run: npm install -g npm
       
