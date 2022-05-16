@@ -12,6 +12,9 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v3
 
+      - name: Create .env file
+        run: touch .env
+
       - name: Login to Heroku Container registry
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
