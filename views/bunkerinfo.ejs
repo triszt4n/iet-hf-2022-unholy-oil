@@ -1,51 +1,58 @@
-<%- include('header') %>
-<%- include('menu') %>
+<%- include('header') %> <%- include('menu') %>
 
 <!-- Content -->
 <div class="container">
-    <div class="row">
-        <div class="col-12">
-            <h2>Bunker adatok:</h2>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Név: <%=bunker.name%></li>
-                <li class="list-group-item">Cím: <%=bunker.adress%></li>
-                <li class="list-group-item">Férőhely: <%=bunker.capacity%> ember</li>
-                <li class="list-group-item">Becsült készlet: <%=bunker.stock_dur%> nap</li>
-            </ul>
-        </div>
+  <div class="row">
+    <div class="col-12">
+      <h2>Bunker adatok:</h2>
+      <ul class="list-group list-group-flush" id="bunker-data">
+        <li class="list-group-item">Név: <%=bunker.name%></li>
+        <li class="list-group-item">Cím: <%=bunker.adress%></li>
+        <li class="list-group-item">Férőhely: <%=bunker.capacity%> ember</li>
+        <li class="list-group-item">
+          Becsült készlet: <%=bunker.stock_dur%> nap
+        </li>
+      </ul>
     </div>
-    <div class="row">
-        <div class="col-12">
-        <h2>Raktár tartalom:</h2>
-            <table class="table table-striped">
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Típus</th>
-                    <th scope="col">Menyiség</th>
-                    <th scope="col">Lejárati idő</th>
-                    <th scope="col">Műveletek</th>
-                </tr>
-                </thead>
-                <tbody>
-                <%for (let entry of bunker.stock) {%>
-                    <tr>
-                        <td><%=entry.type%></td>
-                        <td><%=entry.quantity%> adag</td>
-                        <td class="<%=entry.style%>"><%=entry.expirationDate%></td>
-                        <td>
-                            <a href="/bunkers/storage/del/<%=bunker._id%>/<%=entry._id%>" type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
-                <%}%>
-                </tbody>
-            </table>
-            <a href="/bunkers/storage/add/<%=bunker._id%>/" type="button" class="btn btn-primary btn-lg btn-block">Raktárelem hozzáadása</a>
-        </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h2>Raktár tartalom:</h2>
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Típus</th>
+            <th scope="col">Menyiség</th>
+            <th scope="col">Lejárati idő</th>
+            <th scope="col">Műveletek</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%for (let entry of bunker.stock) {%>
+          <tr>
+            <td><%=entry.type%></td>
+            <td><%=entry.quantity%> adag</td>
+            <td class="<%=entry.style%>"><%=entry.expirationDate%></td>
+            <td>
+              <a
+                href="/bunkers/storage/del/<%=bunker._id%>/<%=entry._id%>"
+                type="button"
+                class="btn btn-danger btn-sm"
+                ><i class="fas fa-trash"></i
+              ></a>
+            </td>
+          </tr>
+          <%}%>
+        </tbody>
+      </table>
+      <a
+        href="/bunkers/storage/add/<%=bunker._id%>/"
+        type="button"
+        class="btn btn-primary btn-lg btn-block"
+        >Raktárelem hozzáadása</a
+      >
     </div>
+  </div>
 </div>
-
-
-
-
 
 <%- include('footer') %>
