@@ -7,17 +7,19 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
       - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_PASSWORD
+    ports:
+      - $MONGODB_LOCAL_PORT:27017
     volumes:
       - db:/data/db
   app:
+    build: .
+    command: npm run start:prod
     depends_on:
       - mongodb
     restart: unless-stopped
-    env_file: 
+    env_file:
       - .env
     ports:
       - 80:3000
-    environment:
-      - CONNECT_STRING=$CONNECT_STRING
 volumes:
   db:
