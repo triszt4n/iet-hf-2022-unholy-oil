@@ -11,6 +11,7 @@ class Page {
             this.bunkerAddress = this.bunkerName.nextSibling()
             this.bunkerCapacity = this.bunkerAddress.nextSibling();
             this.storageAddButton = Selector('#storage-add-btn')
+            this.storageRecords = Selector('tr');
     }
 
     

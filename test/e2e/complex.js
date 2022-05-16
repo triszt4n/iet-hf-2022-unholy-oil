@@ -67,7 +67,7 @@ test.before(async t => {
 
     })
 
-test.only.before(async t => {
+test.before(async t => {
     await dbClean();
     await dbSeed();
 })('Create new food', async t => {
@@ -131,36 +131,28 @@ test.before(async t => {
 
     await t.useRole(adminUser)
 
-    const infoButton = Selector('a').withAttribute('href', /\/bunkers\/info\/*/);
+    // navigate to a bunker info page
+    await navigationPM.toBunkerList();
+    await bunkerListPM.toRandomBunkerInfo();
 
+    // count the number of storage items it has
+    const ogStorageRecordCount = await bunkerInfoPM.storageRecords.count;
+
+    // navigate to add storage items path
+    await bunkerInfoPM.toStorageAdd();
+
+    // check if form has all inputs
     await t
-        .expect(infoButton.exists).ok('There should be an info button to details')
-        .click(infoButton);
+        .expect(storageAddFormPM.dropDownMenu.exists).ok('A type selector should exist')
+        .expect(storageAddFormPM.options.count).gt(0, 'There should be at least one option in test database')
+        .expect(storageAddFormPM.creationInput.exists).ok('A date of creation input should exist')
+        .expect(storageAddFormPM.quantityInput.exists).ok('A quantity input should exist');
+        
 
-    const storageRecords = Selector('tr');
-    const ogStorageRecordCount = await storageRecords.count;
+        // submit form 
+    await storageAddFormPM.submitForm('1999-12-23','100');
 
-    const storageButton = Selector('a').withAttribute('href', /\/bunkers\/storage\/add\/*/)
-    await t
-        .expect(storageButton.exists).ok('Should have an add to storage button')
-        .click(storageButton)
-
-
-    const typeSelect = Selector('select')
-    const options = typeSelect.find('option')
-    const creationInput = Selector('#dop')
-    const quantityInput = Selector('#quantity')
-
-    await t
-        .expect(typeSelect.exists).ok('A type selector should exist')
-        .expect(options.count).gt(0, 'There should be at least one option in test database')
-        .expect(creationInput.exists).ok('A date of creation input should exist')
-        .expect(quantityInput.exists).ok('A quantity input should exist')
-        .typeText(creationInput, '1999-12-23')
-        .typeText(quantityInput, '10')
-        .click('input[type=submit]')
-
-
-    await t.expect(storageRecords.count).gt(ogStorageRecordCount, 'Storage records should be updated')
+    //check if number of records is greater than previous
+    await t.expect(bunkerInfoPM.storageRecords.count).eql(ogStorageRecordCount +1, 'Storage records should be updated');
 
 })

@@ -5,6 +5,8 @@ class Page {
     constructor() {
         this.dropDownMenu = Selector('select')
         this.options = this.dropDownMenu.find('option')
+        this.creationInput = Selector('#dop')
+        this.quantityInput = Selector('#quantity')
     }
 
 
@@ -15,6 +17,13 @@ class Page {
             .expect(this.options.withExactText(foodType).exists).ok('An option should exist with new food name')
             .click(this.options.withExactText(foodType));
     }
+
+    async submitForm(dop, quantity){
+        await t
+        .typeText(this.creationInput,dop)
+        .typeText(this.quantityInput,quantity)
+        .click('input[type=submit]')
+        }
 
 }
 
