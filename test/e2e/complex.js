@@ -4,6 +4,9 @@ import bunkerListPM from './page-models/bunkerList'
 import navigationPM from './page-models/navigation'
 import bunkerFormPM from './page-models/bunkerForm'
 import bunkerInfoPM from './page-models/bunkerInfo'
+import foodListPM from './page-models/foodList'
+import foodFormPM from './page-models/foodForm'
+import storageAddFormPM from './page-models/storageAddForm'
 
 fixture `Complex user action tests`
     .page `localhost:3000/bunkers`
@@ -64,12 +67,10 @@ test.before(async t => {
 
     })
 
-test.before(async t => {
+test.only.before(async t => {
     await dbClean();
     await dbSeed();
 })('Create new food', async t => {
-
-    await t.useRole(adminUser)
 
     const testFood = {
         name: 'UI test food',
@@ -77,70 +78,48 @@ test.before(async t => {
         lasts: '100'
     }
 
-    const foodsNavigation = Selector('a').withAttribute('href', '/foods');
 
-    await t.expect(foodsNavigation.exists).ok('A button for navigating to food lists should exist')
-        .click(foodsNavigation);
+    // navigate to new food form
+    await t.useRole(adminUser)
 
-    await t.expect(await (pahtName())).eql('/foods', 'Button should navigate to foods');
+    await navigationPM.toFoodList();
 
-    const newFoodButton = Selector('a').withAttribute('href', '/foods/new');
-
-    await t.expect(newFoodButton.exists).ok('A new food button should exist')
-        .click(newFoodButton);
+    await foodListPM.toNewFood();
 
     // Create new food
+    await t
+        .expect(foodFormPM.nameInput.exists).ok('Name input should exist')
+        .expect(foodFormPM.caloryInput.exists).ok('Calory input should exist')
+        .expect(foodFormPM.lastingInput.exists).ok('Lasting Input should exist')
 
-    const nameInput = Selector('#name');
-    const caloryInput = Selector('#kcal');
-    const lastingInput = Selector('#lasts');
+    // submit newfood form
+    await foodFormPM.submitForm(testFood.name,testFood.kcal,testFood.lasts);
 
-    await t.expect(nameInput.exists).ok('Name input should exist')
-        .expect(caloryInput.exists).ok('Calory input should exist')
-        .expect(lastingInput.exists).ok('Lasting Input should exist')
+
+    // test if it shows up in list
+    const foodRow = foodListPM.getFood(testFood.name)
 
     await t
-        .typeText(nameInput, testFood.name)
-        .typeText(caloryInput, testFood.kcal)
-        .typeText(lastingInput, testFood.lasts)
-        .click('input[type=submit]')
-
-    // check if data displayed correctly in list
-    const newFoodRow = Selector('td').withExactText(testFood.name);
-    const newFoodKcal = newFoodRow.sibling().withText(testFood.kcal);
-    const newFoodLasts = newFoodRow.sibling().withText(testFood.lasts)
-
-    await t
-        .expect(newFoodRow.exists).ok('A new row should exist after creation')
-        .expect(newFoodKcal.exists).ok('The correct calory should be displayed')
-        .expect(newFoodLasts.exists).ok('The food lasting should be displayed')
+        .expect(foodRow.nameField.innerText).match(new RegExp(testFood.name))
+        .expect(foodRow.kcalField.innerText).match(new RegExp(testFood.kcal))
+        .expect(foodRow.lastingField.innerText).match(new RegExp(testFood.lasts))
 
 
     // check if new item is in the dropdown list for making a new storageitem
-    await t.navigateTo('/bunkers')
 
-    const infoButton = Selector('a').withAttribute('href', /\/bunkers\/info\/*/)
-    await t.expect(infoButton.exists).ok()
-        .click(infoButton);
+    // navigate to a storage add form
+    await navigationPM.toBunkerList();
 
+    await bunkerListPM.toRandomBunkerInfo();
 
-    const storageButton = Selector('a').withAttribute('href', /\/bunkers\/storage\/add\/*/)
+    await bunkerInfoPM.toStorageAdd();
 
-    await t.expect(storageButton.exists).ok()
-        .click(storageButton);
-
-    const dropDownMenu = Selector('select')
-    const options = dropDownMenu.find('option')
-
-    await t
-        .expect(dropDownMenu.exists).ok('A dropdown menu should exist')
-        .click(dropDownMenu)
-        .expect(options.withExactText(testFood.name).exists).ok('An option should exist with new food name')
-        .click(options.withExactText(testFood.name));
-
-    const foodId = await options.withExactText(testFood.name).value;
-    await t.expect(dropDownMenu.value).eql(foodId, 'The chosen food type should be the new food')
-
+    // select the new food type in the dropdonw menu
+    await storageAddFormPM.selectFoodType(testFood.name)
+    
+    // check if its selected correctly
+    const foodId = await storageAddFormPM.options.withExactText(testFood.name).value;
+    await t.expect(storageAddFormPM.dropDownMenu.value).eql(foodId, 'The chosen food type should be the new food')
 
 })
 

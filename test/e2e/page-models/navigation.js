@@ -13,7 +13,7 @@ class Navigation{
         await t.expect(await(pahtName())).eql('/bunkers', 'Should navigate to /bunkers')
     }
 
-    async toFoogList(){
+    async toFoodList(){
         await t.expect(this.foodList.exists).ok('There should be navigation to Food List')
         .click(this.foodList)
         await t.expect(await(pahtName())).eql('/foods', 'Should navigate to /foods')
