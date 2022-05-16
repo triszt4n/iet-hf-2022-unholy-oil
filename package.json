@@ -6,7 +6,7 @@
   "scripts": {
     "test:mocha": "DOTENV_CONFIG_PATH=.test.env mocha -r dotenv/config  test/unit --recursive ",
     "test:cucumber": "cucumber-js test/bdd",
-    "test:e2e": "testcafe all",
+    "test:e2e": "testcafe chromium:headless",
     "lint:eslint": "eslint --ext .js .",
     "lint:prettier": "prettier --check .",
     "lint": "run-s lint:*",
