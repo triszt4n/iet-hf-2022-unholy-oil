@@ -1,12 +1,9 @@
 import { Selector } from 'testcafe';
-import { ClientFunction } from 'testcafe';
+import { pahtName } from './utils';
 
-fixture`Example test`
+fixture`Login test`
     .page`localhost:3000`;
 
-const getLocationPart = ClientFunction(locationPart => {
-    return window.location[locationPart];
-});
 
 test('Login and log out', async t =>{
 
@@ -16,7 +13,7 @@ test('Login and log out', async t =>{
         .click('input[type=submit]')
 
         const btnLogout = Selector('#btn-logout')
-        let path = await getLocationPart('pathname')
+        let path = await pahtName();
 
         await t
         .expect(path).eql('/bunkers','Login should redirect to bunkers page')
@@ -24,7 +21,7 @@ test('Login and log out', async t =>{
 
         await t.click(btnLogout);
 
-        path = await getLocationPart('pathname');
+        path = await pahtName();
 
         await t.expect(path).eql('/', 'Logout should redirect to login page')
 
