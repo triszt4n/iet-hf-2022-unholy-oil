@@ -12,6 +12,7 @@
     "lint": "run-s lint:*",
     "format": "prettier --write .",
     "test": "run-s test:*",
+    "start:prod": "node index.js",
     "start": "nodemon index.js"
   },
   "author": "EQN34F",
