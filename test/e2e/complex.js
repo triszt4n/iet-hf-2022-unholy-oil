@@ -153,3 +153,45 @@ await t.useRole(adminUser)
 
 
 })
+
+
+test.only.before( async t=> {
+    await dbClean();
+    await dbSeed();
+})('Add food to storage', async t => {
+
+    await t.useRole(adminUser)
+
+    const infoButton = Selector('a').withAttribute('href',/\/bunkers\/info\/*/);
+
+    await t
+    .expect(infoButton.exists).ok('There should be an info button to details')
+    .click(infoButton);
+
+    const storageRecords = Selector('tr');
+    const ogStorageRecordCount = await storageRecords.count;
+
+    const storageButton = Selector('a').withAttribute('href',/\/bunkers\/storage\/add\/*/)
+    await t
+    .expect(storageButton.exists).ok('Should have an add to storage button')
+    .click(storageButton)
+
+
+    const typeSelect = Selector('select')
+    const options = typeSelect.find('option')
+    const creationInput = Selector('#dop')
+    const quantityInput = Selector('#quantity')
+
+    await t
+    .expect(typeSelect.exists).ok('A type selector should exist')
+    .expect(options.count).gt(0,'There should be at least one option in test database')
+    .expect(creationInput.exists).ok('A date of creation input should exist')
+    .expect(quantityInput.exists).ok('A quantity input should exist')
+    .typeText(creationInput, '1999-12-23')
+    .typeText(quantityInput, '10')
+    .click('input[type=submit]')
+
+
+    await t.expect(storageRecords.count).gt(ogStorageRecordCount, 'Storage records should be updated')
+
+})
