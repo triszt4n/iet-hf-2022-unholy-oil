@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 
-const connectionString = process.env.MONGODB_CONNECTION_URL || ''
+const { MONGODB_USER: user, MONGODB_PASSWORD: pw } = process.env
+
+const connectionString = `mongodb://${user}:${pw}@mongodb:27017`
 
 mongoose.connect(connectionString, {
   useNewUrlParser: true,

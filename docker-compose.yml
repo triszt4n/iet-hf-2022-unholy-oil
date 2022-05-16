@@ -8,9 +8,11 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
       - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_PASSWORD
     ports:
-      - $MONGODB_LOCAL_PORT:27017
+      - 27018:27017
     volumes:
       - db:/data/db
+    networks:
+      - bunker-net
   app:
     build: .
     command: npm run start:prod
@@ -21,5 +23,11 @@ services:
       - .env
     ports:
       - 80:3000
+    networks:
+      - bunker-net
 volumes:
   db:
+    external:
+      name: bunker_db
+networks:
+  bunker-net:
