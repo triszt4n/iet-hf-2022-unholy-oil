@@ -1,12 +1,6 @@
 version: '3'
 
 services:
-  db:
-    image: mongo
-    container_name: db
-    ports:
-      - 27017:27017
-    restart: always
   app:
     build:
       context: .
@@ -18,3 +12,4 @@ services:
       - 8080:8080
     env_file: 
       - .env
+    working_dir: /app
