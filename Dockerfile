@@ -1,11 +1,7 @@
-FROM node:14
+FROM node:latest
 
-WORKDIR /src
-
-COPY .env .
-COPY package.json .
-COPY package-lock.json .
-
+RUN mkdir /app
+WORKDIR /app
+COPY . /app/
 RUN npm install
-COPY . .
 CMD npm run start:prod
